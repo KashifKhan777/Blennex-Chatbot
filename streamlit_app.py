@@ -220,7 +220,8 @@ if not WIDGET:
 
 # Empty state: greeting + suggestion chips
 pending = None
-if not st.session_state.history:
+was_empty = not st.session_state.history
+if was_empty:
     if WIDGET:
         st.markdown(
             '<div class="bx-hello"><div class="bx-eyebrow">Blennex Design</div>'
@@ -263,5 +264,5 @@ if user_msg:
         {"role": "user", "content": user_msg},
         {"role": "assistant", "content": reply},
     ]
-    if pending:
-        st.rerun()  # hide the suggestions once the chat has started
+    if was_empty:
+        st.rerun()  # clear the welcome screen and suggestions once the chat has started
