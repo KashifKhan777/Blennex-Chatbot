@@ -86,5 +86,5 @@ Preview: `widget/demo.html`.
 | Name | Required | Purpose |
 |---|---|---|
 | `GROQ_API_KEY` | yes | Groq API key (Streamlit **Secrets** / Render env var; never commit it) |
-| `BLENNEX_CONTACT` | no | Where the bot sends leads, e.g. `hello@blennex.com` |
+| `BLENNEX_CONTACT` | no | Override where the bot sends leads (default: Contact page, hello@blennexdesign.com, WhatsApp) |
 | `GROQ_MODEL` | no | Override the primary model |

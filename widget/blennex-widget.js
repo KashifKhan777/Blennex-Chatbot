@@ -13,6 +13,9 @@
  *   data-greeting  text in the little bubble       ("" to turn it off)
  *   data-position  "right" or "left"              (default right)
  *   data-delay     seconds before the bubble shows (default 4)
+ *
+ * Colors can also be set from your site's CSS (handy for light/dark themes):
+ *   #blennex-chat-widget { --bx-color:#151412; --bx-fg:#fff; --bx-accent:#D3A6AA }
  */
 (function () {
   "use strict";
@@ -49,11 +52,11 @@
     ":host{all:initial}",
     "*{box-sizing:border-box;font-family:Inter,ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif}",
     ".launcher{position:fixed;bottom:22px;" + SIDE + ":22px;width:60px;height:60px;border-radius:50%;border:0;cursor:pointer;",
-    "  background:" + COLOR + ";color:#fff;display:flex;align-items:center;justify-content:center;",
+    "  background:var(--bx-color," + COLOR + ");color:var(--bx-fg,#fff);display:flex;align-items:center;justify-content:center;",
     "  box-shadow:0 8px 24px rgba(0,0,0,.28);transition:transform .2s ease,box-shadow .2s ease;z-index:2147483000}",
     ".launcher:hover{transform:scale(1.06);box-shadow:0 10px 28px rgba(0,0,0,.34)}",
-    ".launcher:focus-visible,.hbtn:focus-visible,.bubble-x:focus-visible{outline:3px solid " + ACCENT + ";outline-offset:2px}",
-    ".launcher .dot{position:absolute;top:3px;" + SIDE + ":3px;width:13px;height:13px;border-radius:50%;background:" + ACCENT + ";border:2px solid #fff}",
+    ".launcher:focus-visible,.hbtn:focus-visible,.bubble-x:focus-visible{outline:3px solid var(--bx-accent," + ACCENT + ");outline-offset:2px}",
+    ".launcher .dot{position:absolute;top:3px;" + SIDE + ":3px;width:13px;height:13px;border-radius:50%;background:var(--bx-accent," + ACCENT + ");border:2px solid var(--bx-color," + COLOR + ")}",
     ".launcher.open .dot{display:none}",
     ".bubble{position:fixed;bottom:94px;" + SIDE + ":22px;max-width:250px;background:#fff;color:#2a2622;border-radius:14px;",
     "  padding:12px 32px 12px 14px;font-size:14px;line-height:1.45;box-shadow:0 8px 28px rgba(0,0,0,.18);cursor:pointer;",
@@ -67,20 +70,20 @@
     "  box-shadow:0 16px 48px rgba(0,0,0,.28);opacity:0;transform:translateY(14px) scale(.98);transform-origin:bottom " + SIDE + ";",
     "  transition:opacity .22s ease,transform .22s ease;pointer-events:none;visibility:hidden;z-index:2147483001}",
     ".panel.open{opacity:1;transform:none;pointer-events:auto;visibility:visible}",
-    ".head{background:" + COLOR + ";color:#fff;padding:14px 12px 14px 16px;display:flex;align-items:center;gap:12px;flex:none}",
-    ".avatar{width:38px;height:38px;border-radius:50%;background:" + ACCENT + ";color:" + COLOR + ";display:flex;align-items:center;justify-content:center;font-weight:700;font-size:17px;flex:none}",
+    ".head{background:var(--bx-color," + COLOR + ");color:var(--bx-fg,#fff);padding:14px 12px 14px 16px;display:flex;align-items:center;gap:12px;flex:none}",
+    ".avatar{width:38px;height:38px;border-radius:50%;background:var(--bx-accent," + ACCENT + ");color:#151412;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:17px;flex:none}",
     ".titles{flex:1;min-width:0}",
     ".title{font-weight:600;font-size:15px;letter-spacing:.01em}",
     ".sub{font-size:12px;opacity:.75;margin-top:2px;display:flex;align-items:center;gap:6px}",
     ".sub i{width:7px;height:7px;border-radius:50%;background:#6fcf8e;display:inline-block}",
-    ".hbtn{width:34px;height:34px;border:0;border-radius:50%;background:transparent;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:.85}",
-    ".hbtn:hover{background:rgba(255,255,255,.12);opacity:1}",
+    ".hbtn{width:34px;height:34px;border:0;border-radius:50%;background:transparent;color:inherit;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:.85}",
+    ".hbtn:hover{background:rgba(127,127,127,.2);opacity:1}",
     ".body{position:relative;flex:1;background:#faf9f7}",
     ".body iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:#faf9f7}",
     ".loading{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;",
     "  color:#6b5b4b;font-size:14px;text-align:center;padding:24px;background:#faf9f7;transition:opacity .3s ease}",
     ".loading.hide{opacity:0;pointer-events:none}",
-    ".spinner{width:30px;height:30px;border-radius:50%;border:3px solid #e6e1da;border-top-color:" + COLOR + ";animation:spin .9s linear infinite}",
+    ".spinner{width:30px;height:30px;border-radius:50%;border:3px solid #e6e1da;border-top-color:var(--bx-color," + COLOR + ");animation:spin .9s linear infinite}",
     ".loading small{color:#9b8f82;font-size:12px}",
     "@keyframes spin{to{transform:rotate(360deg)}}",
     ".foot{flex:none;font-size:11px;color:#9b8f82;text-align:center;padding:6px 10px 8px;background:#faf9f7;border-top:1px solid #eee9e2}",

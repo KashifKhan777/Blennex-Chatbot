@@ -12,5 +12,3 @@ services:
         value: 3.12.8
       - key: GROQ_API_KEY
         sync: false          # Render asks for the value at deploy time; it is never stored in git
-      - key: BLENNEX_CONTACT
-        value: the contact form on the Blennex Design website

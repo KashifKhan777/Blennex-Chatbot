@@ -12,7 +12,10 @@ import os
 # Where the bot sends people who want to start a project. Set BLENNEX_CONTACT
 # in the deployment (e.g. "hello@blennex.com" or "blennex.com/contact") so the
 # bot can point visitors at the real channel instead of a generic one.
-CONTACT = os.environ.get("BLENNEX_CONTACT", "").strip() or "the contact form on the Blennex Design website"
+CONTACT = os.environ.get("BLENNEX_CONTACT", "").strip() or (
+    "the Contact page on blennexdesign.com, email hello@blennexdesign.com, "
+    "or WhatsApp +92 332 9228145"
+)
 
 SYSTEM_PROMPT = f"""
 # ROLE
