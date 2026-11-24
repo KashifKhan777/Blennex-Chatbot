@@ -38,11 +38,38 @@ def _load_secrets():
         for n in names:
             val = flat.get(n, "").strip().strip('"').strip("'").strip()
             if val:
+                if target == "GROQ_API_KEY":
+                    # API keys never contain whitespace; drop any spaces, line
+                    # breaks or invisible characters picked up while pasting.
+                    val = "".join(ch for ch in val if ch.isprintable() and not ch.isspace())
                 os.environ[target] = val
                 break
 
 
 _load_secrets()
+
+
+def _log_key_fingerprint():
+    """Log a safe fingerprint of the key (never the key itself) to help debug
+    'Invalid API Key' errors from the app logs."""
+    import logging
+
+    key = os.environ.get("GROQ_API_KEY", "")
+    log = logging.getLogger("blennex-bot")
+    if not key:
+        log.error("GROQ_API_KEY is not set (add it under Settings -> Secrets)")
+        return
+    hint = ""
+    if not key.startswith("gsk_"):
+        hint = (" WARNING: Groq keys start with 'gsk_'. This looks like a different provider's key"
+                " (e.g. 'xai-' is Grok/xAI, 'sk-' is OpenAI, 'AIza' is Google) or a placeholder.")
+    log.warning("GROQ_API_KEY loaded: %d characters, starts '%s', ends '%s'.%s",
+                len(key), key[:4], key[-4:], hint)
+
+
+if "_bx_key_logged" not in st.session_state:
+    st.session_state["_bx_key_logged"] = True
+    _log_key_fingerprint()
 
 from chatbot import MAX_INPUT_CHARS, respond  # noqa: E402  (needs the env set first)
 from prompts import EXAMPLE_QUESTIONS, WELCOME_MESSAGE  # noqa: E402
