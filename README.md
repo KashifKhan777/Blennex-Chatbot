@@ -1,23 +1,13 @@
----
-title: Blennex Design Brand Assistant
-emoji: 📦
-colorFrom: gray
-colorTo: yellow
-sdk: gradio
-sdk_version: 6.32.0
-app_file: app.py
-pinned: false
-short_description: Brand identity, packaging & 3D visualization assistant
----
-
 # Nex: Blennex Design Brand Assistant
+
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/KashifKhan777/Blennex-Chatbot)
 
 A domain-focused chatbot for **Blennex Design**: brand identity, packaging and label
 design, and 3D product visualization for product-based brands (beauty, skincare,
 haircare, wellness).
 
 - **LLM API:** Groq (`openai/gpt-oss-120b`, with automatic fallback to `gpt-oss-20b` and `qwen3.8-27b`)
-- **UI / hosting:** Gradio on Hugging Face Spaces
+- **UI / hosting:** Gradio, deployed on Render (free tier)
 - **Behaviour:** defined by the system prompt in `prompts.py` (role, context, knowledge, rules)
 
 ## Model configuration
@@ -44,10 +34,25 @@ export GROQ_API_KEY=your_key_here
 python app.py
 ```
 
+## Deploy (Render, free)
+
+1. Click **Deploy to Render** above (or go to `https://render.com/deploy?repo=https://github.com/KashifKhan777/Blennex-Chatbot`).
+2. Sign in to Render; it reads `render.yaml` and asks for **`GROQ_API_KEY`**. Paste your Groq key there.
+3. Click **Apply**. After the build (~2-3 min) you get a public URL like `https://blennex-brand-assistant.onrender.com`.
+
+Free instances sleep after 15 minutes without traffic; the first visit after that takes ~30-50 seconds to wake up.
+
+### Embed on the Blennex website
+
+```html
+<iframe src="https://blennex-brand-assistant.onrender.com" width="100%" height="720"
+        style="border:0;border-radius:12px" title="Blennex brand assistant"></iframe>
+```
+
 ## Environment variables
 
 | Name | Required | Purpose |
 |---|---|---|
-| `GROQ_API_KEY` | yes | Groq API key (add as a **Secret** on Hugging Face Spaces) |
+| `GROQ_API_KEY` | yes | Groq API key (entered in Render at deploy time; never commit it) |
 | `BLENNEX_CONTACT` | no | Where the bot sends leads, e.g. `hello@blennex.com` |
 | `GROQ_MODEL` | no | Override the primary model |
