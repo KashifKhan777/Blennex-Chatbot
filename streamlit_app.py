@@ -13,13 +13,36 @@ import os
 import streamlit as st
 
 # Streamlit Cloud keeps keys in st.secrets; copy them into the environment so
-# the shared chat engine (which reads os.environ) finds them.
-try:
-    for _key in ("GROQ_API_KEY", "BLENNEX_CONTACT", "GROQ_MODEL"):
-        if _key in st.secrets and not os.environ.get(_key):
-            os.environ[_key] = str(st.secrets[_key])
-except Exception:
-    pass  # no secrets file locally: fall back to real environment variables
+# the shared chat engine (which reads os.environ) finds them. Be forgiving
+# about how the secret was typed: any capitalisation, a few common names, or
+# nested under a [groq] section.
+def _load_secrets():
+    try:
+        flat = {}
+        for k, v in st.secrets.items():
+            if isinstance(v, (str, int, float)):
+                flat[k.strip().upper()] = str(v)
+            elif hasattr(v, "items"):  # a [section]
+                for k2, v2 in v.items():
+                    flat[f"{k.strip().upper()}_{k2.strip().upper()}"] = str(v2)
+    except Exception:
+        return  # no secrets file locally: fall back to real environment variables
+    aliases = {
+        "GROQ_API_KEY": ["GROQ_API_KEY", "GROQ_KEY", "GROQ_APIKEY", "GROQ_API_KEY_", "API_KEY", "GROQ_GROQ_API_KEY"],
+        "BLENNEX_CONTACT": ["BLENNEX_CONTACT"],
+        "GROQ_MODEL": ["GROQ_MODEL"],
+    }
+    for target, names in aliases.items():
+        # Streamlit also copies root-level secrets into os.environ as typed
+        # (spaces/quotes included), so always prefer the cleaned value.
+        for n in names:
+            val = flat.get(n, "").strip().strip('"').strip("'").strip()
+            if val:
+                os.environ[target] = val
+                break
+
+
+_load_secrets()
 
 from chatbot import MAX_INPUT_CHARS, respond  # noqa: E402  (needs the env set first)
 from prompts import EXAMPLE_QUESTIONS, WELCOME_MESSAGE  # noqa: E402

@@ -13,6 +13,8 @@
  *   data-greeting  text in the little bubble       ("" to turn it off)
  *   data-position  "right" or "left"              (default right)
  *   data-delay     seconds before the bubble shows (default 4)
+ *   data-crop      px hidden at the bottom of the app, to keep the
+ *                  "Built with Streamlit" bar out of view (default 36, 0 = off)
  *
  * Colors can also be set from your site's CSS (handy for light/dark themes):
  *   #blennex-chat-widget { --bx-color:#151412; --bx-fg:#fff; --bx-accent:#D3A6AA }
@@ -34,6 +36,7 @@
   var GREETING = cfg("greeting", "Hi! Questions about your brand or packaging? Ask Nex.");
   var SIDE = cfg("position", "right") === "left" ? "left" : "right";
   var DELAY = parseFloat(cfg("delay", "4")) * 1000;
+  var CROP = Math.max(0, parseInt(cfg("crop", "36"), 10) || 0);
   var IFRAME_SRC = APP_URL + "/?embed=true&widget=1";
 
   var store = {
@@ -78,8 +81,10 @@
     ".sub i{width:7px;height:7px;border-radius:50%;background:#6fcf8e;display:inline-block}",
     ".hbtn{width:34px;height:34px;border:0;border-radius:50%;background:transparent;color:inherit;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:.85}",
     ".hbtn:hover{background:rgba(127,127,127,.2);opacity:1}",
-    ".body{position:relative;flex:1;background:#faf9f7}",
-    ".body iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:#faf9f7}",
+    ".body{position:relative;flex:1;background:#faf9f7;overflow:hidden}",
+    // The iframe is taller than the panel by CROP px, so Streamlit Cloud's embed
+    // footer ("Built with Streamlit · Fullscreen") falls below the visible area.
+    ".body iframe{position:absolute;top:0;left:0;width:100%;height:calc(100% + " + CROP + "px);border:0;background:#faf9f7}",
     ".loading{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;",
     "  color:#6b5b4b;font-size:14px;text-align:center;padding:24px;background:#faf9f7;transition:opacity .3s ease}",
     ".loading.hide{opacity:0;pointer-events:none}",
