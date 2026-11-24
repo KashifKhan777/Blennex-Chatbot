@@ -42,6 +42,7 @@ python app.py                      # or the Gradio UI
 | `chatbot.py` | Chat engine: model config, memory, streaming, failure handling |
 | `streamlit_app.py` | Streamlit UI (the deployed app) |
 | `app.py` | Gradio UI (local / Colab / Render) |
+| `widget/blennex-widget.js` | Floating chat button for the website |
 | `Blennex_Chatbot_Assignment.ipynb` | Colab notebook walkthrough with test outputs |
 
 ## Deploy (Streamlit Community Cloud, free, no card)
@@ -58,12 +59,23 @@ python app.py                      # or the Gradio UI
 
 Free apps sleep after several days without visitors; the first visitor then clicks "Yes, get this app back up" and waits ~30 s.
 
-### Embed on the Blennex website
+### Add the floating chat button to the Blennex website
+
+Paste this **one line** before `</body>` (or in your site builder's footer / custom-code box).
+Replace the `data-url` with your Streamlit app link:
 
 ```html
-<iframe src="https://blennex-chatbot.streamlit.app/?embed=true" width="100%" height="720"
-        style="border:0;border-radius:12px" title="Blennex brand assistant"></iframe>
+<script src="https://cdn.jsdelivr.net/gh/KashifKhan777/Blennex-Chatbot@main/widget/blennex-widget.js"
+        data-url="https://blennex-chatbot.streamlit.app" defer></script>
 ```
+
+This adds a round chat button at the bottom right, a small greeting bubble, and a compact chat
+panel (full-screen on phones). Options (add to the same tag):
+`data-color="#2a2622"`, `data-accent="#c9a97a"`, `data-position="left"`,
+`data-greeting="..."` (empty string turns the bubble off), `data-delay="4"` (seconds).
+
+Open the chat from any of your own buttons or links with `onclick="BlennexChat.open()"`.
+Preview: `widget/demo.html`.
 
 ### Alternative: Render
 
