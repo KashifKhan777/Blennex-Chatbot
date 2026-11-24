@@ -1,0 +1,16 @@
+# Render Blueprint: one-click deploy of the Blennex brand assistant (free tier).
+services:
+  - type: web
+    name: blennex-brand-assistant
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: python app.py
+    healthCheckPath: /
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.8
+      - key: GROQ_API_KEY
+        sync: false          # Render asks for the value at deploy time; it is never stored in git
+      - key: BLENNEX_CONTACT
+        value: the contact form on the Blennex Design website
