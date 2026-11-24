@@ -55,16 +55,18 @@ def model_kwargs(model):
 #   starts to embellish. 0.4 keeps answers grounded but still conversational.
 TEMPERATURE = 0.4
 
-# MAX_TOKENS = 600
-#   The system prompt asks for answers of about 250 words (~350 tokens).
-#   600 leaves headroom for a detailed answer when the user asks for one
-#   (for example "walk me through your full process") without cutting it off
-#   mid-sentence, while capping cost and latency and stopping runaway output.
-MAX_TOKENS = 600
+# MAX_TOKENS = 350
+#   The prompt asks for 2-4 sentences (~60-120 tokens), and GPT-OSS also spends
+#   ~30-80 tokens on brief "low effort" reasoning inside the same budget.
+#   350 fits that plus a longer answer when the user asks for detail, while
+#   hard-capping cost and latency. The length rule in the prompt does the real
+#   shortening; this cap is a safety net, set high enough not to cut answers off.
+MAX_TOKENS = 350
 
 # Memory: keep the last N user/assistant exchanges. Older turns are dropped so
 # the prompt stays well within Groq's free-tier tokens-per-minute limits.
-MAX_HISTORY_TURNS = 8
+# With short answers, 6 exchanges is plenty of context for a consultation.
+MAX_HISTORY_TURNS = 6
 
 MAX_INPUT_CHARS = 2000
 REQUEST_TIMEOUT_S = 30
