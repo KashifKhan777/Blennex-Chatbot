@@ -1,6 +1,13 @@
+# Blennex website palette and typography (light base; the widget switches to the
+# site's dark palette with ?theme=dark).
 [theme]
 base = "light"
-primaryColor = "#6b5b4b"
-backgroundColor = "#faf9f7"
-secondaryBackgroundColor = "#f1efeb"
-textColor = "#2a2622"
+primaryColor = "#8C5F63"
+backgroundColor = "#F5F3EF"
+secondaryBackgroundColor = "#FFFFFF"
+textColor = "#151412"
+font = "Inter:https://fonts.googleapis.com/css2?family=Inter:wght@300..700&display=swap"
+headingFont = "Inter:https://fonts.googleapis.com/css2?family=Inter:wght@300..700&display=swap"
+baseRadius = "0.75rem"
+buttonRadius = "full"
+borderColor = "#DCD7CF"
