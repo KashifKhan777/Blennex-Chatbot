@@ -50,7 +50,7 @@ python app.py                      # or the Gradio UI
 1. Go to **https://share.streamlit.io** and sign in with GitHub.
 2. Click **Create app** → **Deploy a public app from GitHub**.
 3. Repository `KashifKhan777/blennex-chatbot`, branch `main`, main file `streamlit_app.py`.
-4. Optionally pick a custom subdomain, e.g. `blennex-chatbot` → `https://blennex-chatbot.streamlit.app`.
+4. Optionally pick a custom subdomain, e.g. `blennex-chatbot`.
 5. **Advanced settings → Secrets**, paste:
    ```toml
    GROQ_API_KEY = "your-groq-key"
@@ -66,7 +66,7 @@ Replace the `data-url` with your Streamlit app link:
 
 ```html
 <script src="https://cdn.jsdelivr.net/gh/KashifKhan777/Blennex-Chatbot@main/widget/blennex-widget.js"
-        data-url="https://blennex-chatbot.streamlit.app" defer></script>
+        data-url="https://blennex-chatbot-kashifkhan.streamlit.app" defer></script>
 ```
 
 This adds a round chat button at the bottom right, a small greeting bubble, and a compact chat

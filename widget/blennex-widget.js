@@ -4,7 +4,7 @@
  * Add ONE line before </body> on your website:
  *
  *   <script src="https://cdn.jsdelivr.net/gh/KashifKhan777/Blennex-Chatbot@main/widget/blennex-widget.js"
- *           data-url="https://blennex-chatbot.streamlit.app" defer></script>
+ *           data-url="https://blennex-chatbot-kashifkhan.streamlit.app" defer></script>
  *
  * Optional attributes on the same <script> tag:
  *   data-url       your Streamlit app link (required)
@@ -28,7 +28,7 @@
     return v === null || v === undefined ? fallback : v;
   };
 
-  var APP_URL = String(cfg("url", "https://blennex-chatbot.streamlit.app")).replace(/\/+$/, "");
+  var APP_URL = String(cfg("url", "https://blennex-chatbot-kashifkhan.streamlit.app")).replace(/\/+$/, "");
   var COLOR = cfg("color", "#2a2622");
   var ACCENT = cfg("accent", "#c9a97a");
   var GREETING = cfg("greeting", "Hi! Questions about your brand or packaging? Ask Nex.");
