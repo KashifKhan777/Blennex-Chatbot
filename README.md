@@ -16,7 +16,7 @@ haircare, wellness).
 | `temperature` | **0.4** | The bot speaks for a real business. Facts (services, process, values) must stay consistent, and it must not improvise prices or claims. Values near 0 sound robotic and repetitive; above ~0.8 the model starts to embellish. 0.4 is grounded but still conversational. |
 | `max_tokens` | **350** | The prompt asks for 2-4 sentences (~40-80 words). 350 covers that, GPT-OSS's brief reasoning tokens, and a longer answer when asked, without cutting off mid-sentence. |
 | History | last 6 exchanges | Keeps conversational memory while staying inside Groq free-tier token limits. |
-| System prompt | ~810 tokens | Resent every message, so kept compact (was ~1,910). |
+| System prompt | ~905 tokens | Resent every message, so kept compact (was ~1,910). |
 
 ## Reliability
 
@@ -40,6 +40,7 @@ python app.py                      # or the Gradio UI
 | File | Purpose |
 |---|---|
 | `prompts.py` | System prompt (role, context, Blennex knowledge, rules) |
+| `knowledge/Blennex_DNA_Client_Safe.docx` | Client-safe Blennex knowledge document the prompt's facts are condensed from |
 | `chatbot.py` | Chat engine: model config, memory, streaming, failure handling |
 | `streamlit_app.py` | Streamlit UI (the deployed app) |
 | `app.py` | Gradio UI (local / Colab / Render) |
